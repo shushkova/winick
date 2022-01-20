@@ -5,6 +5,7 @@ from aiogram_dialog import DialogManager, DialogRegistry, StartMode
 from asyncio import sleep
 
 import keyboards
+import model
 from callback_query_handler import data
 from telbot import dp
 from telbot import bot
@@ -43,7 +44,5 @@ async def text_handling(message: types.Message):
     state = dp.current_state(user=message.from_user.id)
     await state.set_state(State.INIT)
     await message.reply("Обрабатываем текст", reply=False)
-    #
-    # Модель
-    #
-    await message.reply("Результат", reply=False, reply_markup=keyboards.inline_kb_finish_text)
+    result = await model.predict(message.text)
+    await message.reply('Подходящие вина: ' + result, reply=False, reply_markup=keyboards.inline_kb_finish_text)
