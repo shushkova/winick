@@ -31,24 +31,19 @@ async def help_command(message: types.Message):
     )
 
 
-# todo
-async def start_conversation(dialog_manager, user_id):
-    state = dp.current_state(user=user_id)
-    print('Start with ', await state.get_state())
-    await init_order(user_id)
-    data[user_id] = UserChoice()
-    await dialog_manager.start(Initial_checkbox.main, mode=StartMode.NEW_STACK)
-    await sleep(0.01)
-    await bot.send_message(user_id, "Выбраны все категории?", reply_markup=keyboards.inline_kb_next)
-    await state.set_state(State.INIT)
-
-
 @dp.message_handler(commands=['start'], state='*')
-async def start_command(message: types.Message, dialog_manager: DialogManager):
-    await start_conversation(dialog_manager, message.from_user.id)
+async def start_command(message: types.Message):
+    state = dp.current_state(user=message.from_user.id)
+    await state.set_state(State.INIT)
+    await message.reply("Выберите что дальше", reply_markup=keyboards.inline_kb_choose_flow, reply=False)
 
 
-@dp.callback_query_handler(lambda c: c.data == 'retry', state='*')
-async def start_command(callback_query: types.CallbackQuery, dialog_manager: DialogManager):
-    await bot.answer_callback_query(callback_query.id)
-    await start_conversation(dialog_manager, callback_query.from_user.id)
+@dp.message_handler(state=State.TEXT)
+async def text_handling(message: types.Message):
+    state = dp.current_state(user=message.from_user.id)
+    await state.set_state(State.INIT)
+    await message.reply("Обрабатываем текст", reply=False)
+    #
+    # Модель
+    #
+    await message.reply("Результат", reply=False, reply_markup=keyboards.inline_kb_finish_text)

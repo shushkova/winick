@@ -6,6 +6,9 @@ class State(Helper):
 
     INIT = Item()
 
+    TEXT = Item()
+
+    SCHEMA = Item()
     MEAT = Item()
     PREPARATION = Item()
     VEGETABLE = Item()
@@ -19,6 +22,8 @@ class State(Helper):
 
     FINISH = Item()
 
+    NOTHING = Item()
 
-choose_dishes = [State.INIT, State.MEAT, State.PREPARATION, State.VEGETABLE,
+
+choose_dishes = [State.SCHEMA, State.MEAT, State.PREPARATION, State.VEGETABLE,
                  State.STARCH, State.DAIRY, State.SPICE, State.SWEET, State.PRE_FINAL_STATE]
