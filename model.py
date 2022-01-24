@@ -1,10 +1,5 @@
-import flair
-from flair.data import Corpus
-from flair.datasets import TREC_6
-from flair.trainers import ModelTrainer
-import flair.models.text_classification_model as tc
-from flair.models import TARSClassifier
 from flair.data import Sentence
+from flair.models import TARSClassifier
 
 loaded = TARSClassifier.load('resources/best-model.pt')
 

@@ -1,18 +1,14 @@
 from aiogram import types
-import aiogram_dialog
-from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram_dialog import DialogManager, DialogRegistry, StartMode
-from asyncio import sleep
+from aiogram.dispatcher.filters.state import State
+from aiogram_dialog import DialogRegistry
 
 import keyboards
 import model
-from callback_query_handler import data
+from initial_checkbox import dialog
 from messages import Message
-from telbot import dp
-from telbot import bot
-from initial_checkbox import Initial_checkbox, dialog, init_order, order
 from state import State
-from user_choice import UserChoice
+from telbot import bot
+from telbot import dp
 
 status = 'not started'
 registry = DialogRegistry(dp)
@@ -31,7 +27,8 @@ async def help_command(message: types.Message):
 async def start_command(message: types.Message):
     state = dp.current_state(user=message.from_user.id)
     await state.set_state(State.INIT)
-    await message.reply(Message['choose'], reply_markup=keyboards.inline_kb_choose_flow, reply=False)
+    await message.reply(Message['start_command'], reply=False)
+    await message.reply(Message['select_mode'], reply_markup=keyboards.inline_kb_choose_flow, reply=False)
 
 
 @dp.message_handler(state=State.TEXT)

@@ -1,18 +1,17 @@
+from asyncio import sleep
 from collections import defaultdict
 
 from aiogram import types
+from aiogram_dialog import DialogManager, StartMode
 
 import keyboards
 from init_table_info.intersections import get_suitable, get_intersection
-from initial_checkbox import order
+from initial_checkbox import Initial_checkbox, init_order, order
 from messages import Message
 from state import State, choose_dishes
 from telbot import bot
 from telbot import dp
 from user_choice import UserChoice
-from initial_checkbox import Initial_checkbox, dialog, init_order, order
-from aiogram_dialog import DialogManager, DialogRegistry, StartMode
-from asyncio import sleep
 
 status = 'not started'
 
@@ -101,4 +100,4 @@ async def process_callback_back_to_menu(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     state = dp.current_state(user=callback_query.from_user.id)
     await state.set_state(State.INIT)
-    await callback_query.message.reply(Message['choose'], reply_markup=keyboards.inline_kb_choose_flow, reply=False)
+    await callback_query.message.reply(Message['select_mode'], reply_markup=keyboards.inline_kb_choose_flow, reply=False)
