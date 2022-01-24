@@ -33,12 +33,11 @@ def get_next_state(res_order: list, curr):
 # todo
 async def start_conversation(dialog_manager, user_id):
     state = dp.current_state(user=user_id)
-    print('Start with ', await state.get_state())
     await init_order(user_id)
     data[user_id] = UserChoice()
     await dialog_manager.start(Initial_checkbox.main, mode=StartMode.NEW_STACK)
     await sleep(0.01)
-    await bot.send_message(user_id, "Выбраны все категории?", reply_markup=keyboards.inline_kb_next)
+    await bot.send_message(user_id, Message['all_cat'], reply_markup=keyboards.inline_kb_next)
     await state.set_state(State.SCHEMA)
 
 
@@ -47,7 +46,7 @@ async def process_callback_start_text(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     state = dp.current_state(user=user_id)
-    await callback_query.message.reply("Введите текст", reply=False)
+    await callback_query.message.reply(Message['input_text'], reply=False)
     await state.set_state(State.TEXT)
 
 
@@ -55,6 +54,7 @@ async def process_callback_start_text(callback_query: types.CallbackQuery):
 @dp.callback_query_handler(lambda c: c.data == 'schema', state='*')
 async def process_callback_start_schema(callback_query: types.CallbackQuery, dialog_manager: DialogManager):
     await bot.answer_callback_query(callback_query.id)
+    await callback_query.message.reply(Message['schema'], reply=False)
     await start_conversation(dialog_manager, callback_query.from_user.id)
 
 
@@ -101,4 +101,4 @@ async def process_callback_back_to_menu(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     state = dp.current_state(user=callback_query.from_user.id)
     await state.set_state(State.INIT)
-    await callback_query.message.reply("Выберите что дальше", reply_markup=keyboards.inline_kb_choose_flow, reply=False)
+    await callback_query.message.reply(Message['choose'], reply_markup=keyboards.inline_kb_choose_flow, reply=False)

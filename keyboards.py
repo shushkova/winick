@@ -5,36 +5,36 @@ from state import State
 
 inline_kb_choose_flow = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Текст', callback_data='text')],
-        [InlineKeyboardButton(text='Схема', callback_data='schema')]
+        [InlineKeyboardButton(text='Text', callback_data='text')],
+        [InlineKeyboardButton(text='Schema', callback_data='schema')]
     ]
 )
 
 inline_kb_finish_text = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Заново', callback_data='text')],
-        [InlineKeyboardButton(text='Вернуться в главное меню', callback_data='back_to_menu')]
+        [InlineKeyboardButton(text='Retry', callback_data='text')],
+        [InlineKeyboardButton(text='Back to main menu', callback_data='back_to_menu')]
     ]
 )
 
 inline_kb_next = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Да', callback_data='next')]
+        [InlineKeyboardButton(text='Yes', callback_data='next')]
     ]
 )
 
 inline_kb_finish = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Да', callback_data='finish')],
-        [InlineKeyboardButton(text='Подобрать заново', callback_data='schema')],
-        [InlineKeyboardButton(text='Вернуться в главное меню', callback_data='back_to_menu')]
+        [InlineKeyboardButton(text='Yes', callback_data='finish')],
+        [InlineKeyboardButton(text='Retry', callback_data='schema')],
+        [InlineKeyboardButton(text='Back to main menu', callback_data='back_to_menu')]
     ]
 )
 
 inline_kb_fail_finish = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Подобрать заново', callback_data='schema')],
-        [InlineKeyboardButton(text='Вернуться в главное меню', callback_data='back_to_menu')]
+        [InlineKeyboardButton(text='Retry', callback_data='schema')],
+        [InlineKeyboardButton(text='Back to main menu', callback_data='back_to_menu')]
     ]
 )
 
